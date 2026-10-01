@@ -88,7 +88,6 @@ headerFrame.BackgroundColor3 = Color3.fromRGB(24, 27, 32)
 headerFrame.BorderSizePixel = 0
 Instance.new("UICorner", headerFrame).CornerRadius = UDim.new(0, 10)
 
--- Fix corner clipping on header bottom
 local headerFix = Instance.new("Frame", headerFrame)
 headerFix.Size = UDim2.new(1, 0, 0, 10)
 headerFix.Position = UDim2.new(0, 0, 1, -10)
@@ -97,94 +96,146 @@ headerFix.BorderSizePixel = 0
 
 local titleLabel = Instance.new("TextLabel", headerFrame)
 titleLabel.Size = UDim2.new(1, -95, 1, 0)
+titleLabel.Position = UDim2.new(0, 10, 0, 0)
 titleLabel.BackgroundTransparency = 1
 titleLabel.Font = Enum.Font.GothamBold
 titleLabel.Text = "azerty098890"
 titleLabel.TextColor3 = Color3.fromRGB(240, 240, 240)
 titleLabel.TextSize = 14
-titleLabel.TextXAlignment = Enum.TextXAlignment.Center
+titleLabel.TextXAlignment = Enum.TextXAlignment.Left
 
-local closeButton = Instance.new("TextButton", headerFrame)
-closeButton.Size = UDim2.new(0, 12, 0, 12); closeButton.Position = UDim2.new(1, -22, 0.5, -6)
-closeButton.BackgroundColor3 = Color3.fromRGB(231, 76, 60); closeButton.Text = ""
+-- Container séparé pour éviter les conflits de clics avec le déplacement
+local buttonsContainer = Instance.new("Frame", headerFrame)
+buttonsContainer.Size = UDim2.new(0, 85, 1, 0)
+buttonsContainer.Position = UDim2.new(1, -90, 0, 0)
+buttonsContainer.BackgroundTransparency = 1
+
+local closeButton = Instance.new("TextButton", buttonsContainer)
+closeButton.Size = UDim2.new(0, 16, 0, 16)
+closeButton.Position = UDim2.new(1, -20, 0.5, -8)
+closeButton.BackgroundColor3 = Color3.fromRGB(231, 76, 60)
+closeButton.Text = ""
 Instance.new("UICorner", closeButton).CornerRadius = UDim.new(1, 0)
 
-local minimizeButton = Instance.new("TextButton", headerFrame)
-minimizeButton.Size = UDim2.new(0, 12, 0, 12); minimizeButton.Position = UDim2.new(1, -40, 0.5, -6)
-minimizeButton.BackgroundColor3 = Color3.fromRGB(241, 196, 15); minimizeButton.Text = ""
+local minimizeButton = Instance.new("TextButton", buttonsContainer)
+minimizeButton.Size = UDim2.new(0, 16, 0, 16)
+minimizeButton.Position = UDim2.new(1, -42, 0.5, -8)
+minimizeButton.BackgroundColor3 = Color3.fromRGB(241, 196, 15)
+minimizeButton.Text = ""
 Instance.new("UICorner", minimizeButton).CornerRadius = UDim.new(1, 0)
 
-local cframeToggle = Instance.new("TextButton", headerFrame)
-cframeToggle.Size = UDim2.new(0, 24, 0, 20); cframeToggle.Position = UDim2.new(1, -68, 0.5, -10)
-cframeToggle.BackgroundColor3 = Color3.fromRGB(35, 38, 45); cframeToggle.Font = Enum.Font.GothamBold
-cframeToggle.Text = "CF"; cframeToggle.TextColor3 = Color3.fromRGB(200, 200, 200); cframeToggle.TextSize = 11
+local cframeToggle = Instance.new("TextButton", buttonsContainer)
+cframeToggle.Size = UDim2.new(0, 24, 0, 20)
+cframeToggle.Position = UDim2.new(1, -72, 0.5, -10)
+cframeToggle.BackgroundColor3 = Color3.fromRGB(35, 38, 45)
+cframeToggle.Font = Enum.Font.GothamBold
+cframeToggle.Text = "CF"
+cframeToggle.TextColor3 = Color3.fromRGB(200, 200, 200)
+cframeToggle.TextSize = 11
 Instance.new("UICorner", cframeToggle).CornerRadius = UDim.new(0, 4)
-local cframeStroke = Instance.new("UIStroke", cframeToggle); cframeStroke.Color = Color3.fromRGB(55, 58, 65)
+local cframeStroke = Instance.new("UIStroke", cframeToggle)
+cframeStroke.Color = Color3.fromRGB(55, 58, 65)
 
 local bodyFrame = Instance.new("Frame", mainFrame)
-bodyFrame.Size = UDim2.new(1, 0, 1, -42); bodyFrame.Position = UDim2.new(0, 0, 0, 42)
+bodyFrame.Size = UDim2.new(1, 0, 1, -42)
+bodyFrame.Position = UDim2.new(0, 0, 0, 42)
 bodyFrame.BackgroundTransparency = 1
 
 local flyButton = Instance.new("TextButton", bodyFrame)
-flyButton.Size = UDim2.new(1, -20, 0, 36); flyButton.Position = UDim2.new(0, 10, 0, 10)
-flyButton.BackgroundColor3 = Color3.fromRGB(30, 33, 40); flyButton.Font = Enum.Font.GothamMedium
-flyButton.Text = "Fly (X) : OFF"; flyButton.TextColor3 = Color3.fromRGB(240, 240, 240); flyButton.TextSize = 14
+flyButton.Size = UDim2.new(1, -20, 0, 36)
+flyButton.Position = UDim2.new(0, 10, 0, 10)
+flyButton.BackgroundColor3 = Color3.fromRGB(30, 33, 40)
+flyButton.Font = Enum.Font.GothamMedium
+flyButton.Text = "Fly (X) : OFF"
+flyButton.TextColor3 = Color3.fromRGB(240, 240, 240)
+flyButton.TextSize = 14
 Instance.new("UICorner", flyButton).CornerRadius = UDim.new(0, 6)
-local flyStroke = Instance.new("UIStroke", flyButton); flyStroke.Color = Color3.fromRGB(50, 53, 60)
+local flyStroke = Instance.new("UIStroke", flyButton)
+flyStroke.Color = Color3.fromRGB(50, 53, 60)
 
 local espButton = Instance.new("TextButton", bodyFrame)
-espButton.Size = UDim2.new(0.48, -5, 0, 32); espButton.Position = UDim2.new(0, 10, 0, 54)
-espButton.BackgroundColor3 = Color3.fromRGB(30, 33, 40); espButton.Font = Enum.Font.GothamMedium
-espButton.Text = "ESP: OFF"; espButton.TextColor3 = Color3.fromRGB(240, 240, 240); espButton.TextSize = 12
+espButton.Size = UDim2.new(0.48, -5, 0, 32)
+espButton.Position = UDim2.new(0, 10, 0, 54)
+espButton.BackgroundColor3 = Color3.fromRGB(30, 33, 40)
+espButton.Font = Enum.Font.GothamMedium
+espButton.Text = "ESP: OFF"
+espButton.TextColor3 = Color3.fromRGB(240, 240, 240)
+espButton.TextSize = 12
 Instance.new("UICorner", espButton).CornerRadius = UDim.new(0, 6)
-local espStroke = Instance.new("UIStroke", espButton); espStroke.Color = Color3.fromRGB(50, 53, 60)
+local espStroke = Instance.new("UIStroke", espButton)
+espStroke.Color = Color3.fromRGB(50, 53, 60)
 
 local wallCheckButton = Instance.new("TextButton", bodyFrame)
-wallCheckButton.Size = UDim2.new(0.48, -5, 0, 32); wallCheckButton.Position = UDim2.new(0.52, 0, 0, 54)
-wallCheckButton.BackgroundColor3 = Color3.fromRGB(30, 33, 40); wallCheckButton.Font = Enum.Font.GothamMedium
-wallCheckButton.Text = "WallCheck: ON"; wallCheckButton.TextColor3 = Color3.fromRGB(88, 101, 242); wallCheckButton.TextSize = 11
+wallCheckButton.Size = UDim2.new(0.48, -5, 0, 32)
+wallCheckButton.Position = UDim2.new(0.52, 0, 0, 54)
+wallCheckButton.BackgroundColor3 = Color3.fromRGB(30, 33, 40)
+wallCheckButton.Font = Enum.Font.GothamMedium
+wallCheckButton.Text = "WallCheck: ON"
+wallCheckButton.TextColor3 = Color3.fromRGB(88, 101, 242)
+wallCheckButton.TextSize = 11
 Instance.new("UICorner", wallCheckButton).CornerRadius = UDim.new(0, 6)
-local wallCheckStroke = Instance.new("UIStroke", wallCheckButton); wallCheckStroke.Color = Color3.fromRGB(88, 101, 242)
+local wallCheckStroke = Instance.new("UIStroke", wallCheckButton)
+wallCheckStroke.Color = Color3.fromRGB(88, 101, 242)
 
 local predictionButton = Instance.new("TextButton", bodyFrame)
-predictionButton.Size = UDim2.new(1, -20, 0, 30); predictionButton.Position = UDim2.new(0, 10, 0, 94)
-predictionButton.BackgroundColor3 = Color3.fromRGB(30, 33, 40); predictionButton.Font = Enum.Font.GothamMedium
-predictionButton.Text = "Ballistic Prediction: ON"; predictionButton.TextColor3 = Color3.fromRGB(88, 101, 242); predictionButton.TextSize = 12
+predictionButton.Size = UDim2.new(1, -20, 0, 30)
+predictionButton.Position = UDim2.new(0, 10, 0, 94)
+predictionButton.BackgroundColor3 = Color3.fromRGB(30, 33, 40)
+predictionButton.Font = Enum.Font.GothamMedium
+predictionButton.Text = "Ballistic Prediction: ON"
+predictionButton.TextColor3 = Color3.fromRGB(88, 101, 242)
+predictionButton.TextSize = 12
 Instance.new("UICorner", predictionButton).CornerRadius = UDim.new(0, 6)
-local predictionStroke = Instance.new("UIStroke", predictionButton); predictionStroke.Color = Color3.fromRGB(88, 101, 242)
+local predictionStroke = Instance.new("UIStroke", predictionButton)
+predictionStroke.Color = Color3.fromRGB(88, 101, 242)
 
 local speedSliderLabel = Instance.new("TextLabel", bodyFrame)
-speedSliderLabel.Size = UDim2.new(1, -20, 0, 20); speedSliderLabel.Position = UDim2.new(0, 10, 0, 132)
-speedSliderLabel.BackgroundTransparency = 1; speedSliderLabel.Font = Enum.Font.Gotham
-speedSliderLabel.Text = string.format("Speed: %.0f", flySpeed); speedSliderLabel.TextColor3 = Color3.fromRGB(170, 175, 185)
-speedSliderLabel.TextSize = 12; speedSliderLabel.TextXAlignment = Enum.TextXAlignment.Left
+speedSliderLabel.Size = UDim2.new(1, -20, 0, 20)
+speedSliderLabel.Position = UDim2.new(0, 10, 0, 132)
+speedSliderLabel.BackgroundTransparency = 1
+speedSliderLabel.Font = Enum.Font.Gotham
+speedSliderLabel.Text = string.format("Speed: %.0f", flySpeed)
+speedSliderLabel.TextColor3 = Color3.fromRGB(170, 175, 185)
+speedSliderLabel.TextSize = 12
+speedSliderLabel.TextXAlignment = Enum.TextXAlignment.Left
 
 local speedSlider = Instance.new("Frame", bodyFrame)
-speedSlider.Size = UDim2.new(1, -20, 0, 6); speedSlider.Position = UDim2.new(0, 10, 0, 156)
+speedSlider.Size = UDim2.new(1, -20, 0, 6)
+speedSlider.Position = UDim2.new(0, 10, 0, 156)
 speedSlider.BackgroundColor3 = Color3.fromRGB(12, 14, 18)
 Instance.new("UICorner", speedSlider).CornerRadius = UDim.new(0, 3)
 
 local sliderBar = Instance.new("Frame", speedSlider)
 local initialPercentage = math.clamp((flySpeed - 1) / 499, 0, 1)
-sliderBar.Size = UDim2.new(initialPercentage, 0, 1, 0); sliderBar.BackgroundColor3 = Color3.fromRGB(88, 101, 242)
+sliderBar.Size = UDim2.new(initialPercentage, 0, 1, 0)
+sliderBar.BackgroundColor3 = Color3.fromRGB(88, 101, 242)
 Instance.new("UICorner", sliderBar).CornerRadius = UDim.new(0, 3)
 
 local sliderHandle = Instance.new("Frame", speedSlider)
-sliderHandle.Size = UDim2.new(0, 16, 0, 16); sliderHandle.Position = UDim2.new(initialPercentage, -8, 0.5, -8)
+sliderHandle.Size = UDim2.new(0, 16, 0, 16)
+sliderHandle.Position = UDim2.new(initialPercentage, -8, 0.5, -8)
 sliderHandle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Instance.new("UICorner", sliderHandle).CornerRadius = UDim.new(1, 0)
 
 local transparencyLabel = Instance.new("TextLabel", bodyFrame)
-transparencyLabel.Size = UDim2.new(0.5, -15, 0, 30); transparencyLabel.Position = UDim2.new(0, 10, 0, 175)
-transparencyLabel.BackgroundTransparency = 1; transparencyLabel.Font = Enum.Font.Gotham
-transparencyLabel.Text = "Transparency:"; transparencyLabel.TextColor3 = Color3.fromRGB(170, 175, 185)
-transparencyLabel.TextSize = 12; transparencyLabel.TextXAlignment = Enum.TextXAlignment.Left
+transparencyLabel.Size = UDim2.new(0.5, -15, 0, 30)
+transparencyLabel.Position = UDim2.new(0, 10, 0, 175)
+transparencyLabel.BackgroundTransparency = 1
+transparencyLabel.Font = Enum.Font.Gotham
+transparencyLabel.Text = "Transparency:"
+transparencyLabel.TextColor3 = Color3.fromRGB(170, 175, 185)
+transparencyLabel.TextSize = 12
+transparencyLabel.TextXAlignment = Enum.TextXAlignment.Left
 
 local transparencyBox = Instance.new("TextBox", bodyFrame)
-transparencyBox.Size = UDim2.new(0.5, -15, 0, 28); transparencyBox.Position = UDim2.new(0.5, 5, 0, 176)
-transparencyBox.BackgroundColor3 = Color3.fromRGB(12, 14, 18); transparencyBox.Font = Enum.Font.Gotham
-transparencyBox.Text = tostring(flyTransparency); transparencyBox.TextColor3 = Color3.fromRGB(240, 240, 240)
-transparencyBox.TextSize = 12; transparencyBox.ClearTextOnFocus = false
+transparencyBox.Size = UDim2.new(0.5, -15, 0, 28)
+transparencyBox.Position = UDim2.new(0.5, 5, 0, 176)
+transparencyBox.BackgroundColor3 = Color3.fromRGB(12, 14, 18)
+transparencyBox.Font = Enum.Font.Gotham
+transparencyBox.Text = tostring(flyTransparency)
+transparencyBox.TextColor3 = Color3.fromRGB(240, 240, 240)
+transparencyBox.TextSize = 12
+transparencyBox.ClearTextOnFocus = false
 Instance.new("UICorner", transparencyBox).CornerRadius = UDim.new(0, 4)
 
 --// Draggable Window System
@@ -196,7 +247,9 @@ local function makeDraggable(guiObject, dragHandle)
         end
     end))
     table.insert(connections, UserInputService.InputEnded:Connect(function(input) 
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then dragging = false end 
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then 
+            dragging = false 
+        end 
     end))
     table.insert(connections, UserInputService.InputChanged:Connect(function(input)
         if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
@@ -207,7 +260,7 @@ local function makeDraggable(guiObject, dragHandle)
 end
 makeDraggable(mainFrame, headerFrame)
 
---// ESP System (Optimized, Safe Cache & Drawing Protection)
+--// ESP System (Safe Drawing Check & Cache)
 local espCache = {}
 
 local function removeEsp(plr)
@@ -220,7 +273,7 @@ local function removeEsp(plr)
 end
 
 local function createEsp(plr)
-    if espCache[plr] or plr == player then return end
+    if espCache[plr] or plr == player or not Drawing then return end
     
     local success, box, name, healthBg, healthBar, predictionDot = pcall(function()
         local b = Drawing.new("Square")
@@ -271,6 +324,10 @@ local function toggleEsp(state)
     espButton.Text = state and "ESP: ON" or "ESP: OFF"
 
     if state then
+        if not Drawing then
+            warn("Drawing library is not supported by your executor! ESP cannot be rendered.")
+            return
+        end
         espLoop = RunService.RenderStepped:Connect(function()
             for plr, drawings in pairs(espCache) do
                 local char = plr.Character
